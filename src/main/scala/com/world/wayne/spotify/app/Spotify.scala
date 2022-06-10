@@ -9,12 +9,12 @@ object Spotify extends App {
 
   def run(): Unit = {
     PlaylistEndPoint(playListId = DEFAULT_PLAYLIST_ID, apiBaseUrl = PLAYLIST_URL)
-      .getPlayListData(
+      .getPlayListDataFromStore(
         playListData => storeAvailableMarket(playListData)
       ).collect { case markets: TrackAvailableMarkets => println(markets) }
 
     PlaylistEndPoint(playListId = DEFAULT_PLAYLIST_ID, apiBaseUrl = PLAYLIST_URL)
-      .getPlayListData(
+      .getPlayListDataFromStore(
         playListData => storeTrackArtist(playListData)
       ).collect { case trackArtist: TrackArtist => println(trackArtist) }
   }

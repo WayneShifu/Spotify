@@ -12,7 +12,8 @@ import scala.util.{Failure, Success, Try}
 
 /**
  * Takes ClientID, Client Secret => Access Token
- * @param clientId Client ID
+ *
+ * @param clientId     Client ID
  * @param clientSecret Client Secret
  */
 case class Auth(clientId: String, clientSecret: String) {
@@ -34,17 +35,21 @@ case class Auth(clientId: String, clientSecret: String) {
  */
 object Auth {
   def apply(): Auth = {
-      Try {
-        val clientId = scala.sys.env(ENV_CLIENT_ID_KEY)
-        val clientSecret = scala.sys.env(ENV_CLIENT_SECRET_KEY)
+    getAndStoreClientIdClientSecret(ENV_CLIENT_ID_KEY, ENV_CLIENT_SECRET_KEY, key => sys.env(key))
+  }
 
-        Auth(clientId, clientSecret)
-      } match {
-        case Success(credentials) => credentials
-        case Failure(exception) => exception match {
-          case _: NoSuchElementException => throw new Exception(s"Please set Environment Variables - ${exception.getMessage}")
-          case _ => throw new Exception(exception.getMessage)
-        }
+  private[auth] def getAndStoreClientIdClientSecret(envClientIdKey: String, envClientSecretKey: String, getter: String => String): Auth = {
+    Try {
+      val clientId = getter(envClientIdKey)
+      val clientSecret = getter(envClientSecretKey)
+
+      Auth(clientId, clientSecret)
+    } match {
+      case Success(credentials) => credentials
+      case Failure(exception) => exception match {
+        case _: NoSuchElementException => throw new Exception(s"Please set Environment Variables - ${exception.getMessage}")
+        case _ => throw new Exception(exception.getMessage)
       }
+    }
   }
 }

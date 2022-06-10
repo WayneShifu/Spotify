@@ -2,7 +2,7 @@ package com.world.wayne.spotify.model.endpoint.playlist
 
 import play.api.libs.json.{JsString, JsValue}
 
-case class AlbumArtist(
+case class AlbumArtistStore(
                         external_urls: JsValue,
                         href: JsString,
                         id: JsString,

@@ -2,7 +2,7 @@ package com.world.wayne.spotify.model.endpoint.playlist
 
 import play.api.libs.json._
 
-case class PlayListData(
+case class PlayListDataStore(
                          album: JsValue,
                          artists: JsArray,
                          available_markets: JsArray,
@@ -25,6 +25,6 @@ case class PlayListData(
                        ) {
   val albumType: JsLookupResult = album \ "album_type"
 
-  val albumArtist: Seq[AlbumArtist] = (album \\ "artists").flatMap(artist => artist.as[JsArray].value.map(artist => artist.as[AlbumArtist](Json.format[AlbumArtist])))
+  val albumArtist: Seq[AlbumArtistStore] = (album \\ "artists").flatMap(artist => artist.as[JsArray].value.map(artist => artist.as[AlbumArtistStore](Json.format[AlbumArtistStore])))
   val albumAvailableMarketList: Seq[String] = (album \\ "available_markets").map(jv => jv.as[JsArray]).flatMap(markets => markets.value.map(market => market.as[JsString].value))
 }

@@ -9,6 +9,7 @@ lazy val root = (project in file("."))
     name := "Spotify",
     libraryDependencies ++= Seq(
       "org.scalaj" %% "scalaj-http" % "2.4.2",
-      "com.typesafe.play" %% "play-json" % "2.9.2"
+      "com.typesafe.play" %% "play-json" % "2.9.2",
+      "org.scalatest" %% "scalatest" % "3.0.5",
     )
   )
