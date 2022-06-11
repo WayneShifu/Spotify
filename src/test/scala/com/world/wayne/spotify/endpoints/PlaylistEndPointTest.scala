@@ -3,8 +3,6 @@ package com.world.wayne.spotify.endpoints
 import org.scalatest.FlatSpec
 import play.api.libs.json.{JsArray, JsObject, JsString, JsValue, Json}
 
-import scala.reflect.ClassTag
-
 class PlaylistEndPointTest extends FlatSpec {
   case class TrackTest(id: JsString, name: JsString)
 

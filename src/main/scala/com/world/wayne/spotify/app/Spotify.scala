@@ -13,17 +13,17 @@ object Spotify extends App {
 
     endPoint
       .outputPlaylistTrackLevelData[TrackAvailableMarkets](
-        playlistTrackStore => storeAvailableMarket(playlistTrackStore)
+        fromPlaylistTrackStore => storeAvailableMarket(fromPlaylistTrackStore)
       ).collect { case markets: TrackAvailableMarkets => println(markets) }
 
     endPoint
       .outputPlaylistTrackLevelData[TrackArtist](
-        playlistTrackStore => storeTrackArtist(playlistTrackStore)
+        fromPlaylistTrackStore => storeTrackArtist(fromPlaylistTrackStore)
       ).collect { case trackArtist: TrackArtist => println(trackArtist) }
 
     endPoint
       .outputPlaylistLevelData[PlaylistSimpleData](
-        playlistDataStore => storePlaylistSimpleData(playlistDataStore)
+        fromPlaylistDataStore => storePlaylistSimpleData(fromPlaylistDataStore)
       ).collect { case playlistSimpleData: PlaylistSimpleData => println(playlistSimpleData) }
 
   }

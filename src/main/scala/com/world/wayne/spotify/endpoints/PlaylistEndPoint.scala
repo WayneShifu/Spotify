@@ -6,8 +6,7 @@ import com.world.wayne.spotify.common.implicits.HttpImplicits._
 import com.world.wayne.spotify.common.implicits.JsonImplicits._
 import com.world.wayne.spotify.model.endpoint.playlist.{PlaylistDataStore, PlaylistTrackDataStore}
 import com.world.wayne.spotify.output.types.OutputTypes
-import com.world.wayne.spotify.output.types.OutputTypes.TrackAvailableMarkets
-import play.api.libs.json.{JsArray, JsObject, JsValue, Reads}
+import play.api.libs.json.{JsObject, JsValue, Reads}
 import scalaj.http.HttpResponse
 
 import scala.reflect.ClassTag

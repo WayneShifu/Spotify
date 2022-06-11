@@ -1,6 +1,5 @@
 package com.world.wayne.spotify.utils
 
-import com.world.wayne.spotify.auth.Auth
 import scalaj.http.{Http, HttpResponse}
 
 object HttpEndPoint {
