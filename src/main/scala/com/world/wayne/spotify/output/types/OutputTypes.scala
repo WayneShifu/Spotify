@@ -1,6 +1,6 @@
 package com.world.wayne.spotify.output.types
 
-import com.world.wayne.spotify.model.endpoint.playlist.PlayListDataStore
+import com.world.wayne.spotify.model.endpoint.playlist.{PlaylistDataStore, PlaylistTrackDataStore}
 
 trait OutputTypes
 
@@ -16,7 +16,13 @@ object OutputTypes {
     }
   }
 
-  val storeTrackArtist: Seq[PlayListDataStore] => Seq[TrackArtist] = {
+  case class PlaylistSimpleData(name: String, uri: String, description: String) extends OutputTypes {
+    override def toString: String = {
+      s"Playlist Name: $name / Uri: $uri / Desription: $description"
+    }
+  }
+
+  val storeTrackArtist: Seq[PlaylistTrackDataStore] => Seq[TrackArtist] = {
     playListData =>
       playListData
         .sortBy(t => t.track_number.value)
@@ -29,10 +35,17 @@ object OutputTypes {
         )
   }
 
-  val storeAvailableMarket: Seq[PlayListDataStore] => Seq[TrackAvailableMarkets] = {
+  val storeAvailableMarket: Seq[PlaylistTrackDataStore] => Seq[TrackAvailableMarkets] = {
     playListData => playListData
       .map(
         playListDetails => TrackAvailableMarkets(playListDetails.name.value, playListDetails.albumAvailableMarketList.mkString(","))
+      )
+  }
+
+  val storePlaylistSimpleData: Seq[PlaylistDataStore] => Seq[PlaylistSimpleData] = {
+    playlistData => playlistData
+      .map(
+        playlistDetails => PlaylistSimpleData(playlistDetails.name.value, playlistDetails.uri.value, playlistDetails.description.value)
       )
   }
 }

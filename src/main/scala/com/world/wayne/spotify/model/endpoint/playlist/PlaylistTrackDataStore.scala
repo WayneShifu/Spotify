@@ -2,7 +2,7 @@ package com.world.wayne.spotify.model.endpoint.playlist
 
 import play.api.libs.json._
 
-case class PlayListDataStore(
+case class PlaylistTrackDataStore(
                          album: JsValue,
                          artists: JsArray,
                          available_markets: JsArray,
