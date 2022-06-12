@@ -1,7 +1,7 @@
 package com.world.wayne.spotify.utils
 
 import com.world.wayne.spotify.common.Constants.{DEFAULT_PLAYLIST_ID, PLAYLIST_URL}
-import com.world.wayne.spotify.utils.HttpEndPoint.createEndPoint
+import com.world.wayne.spotify.endpoints.utils.HttpEndPoint.createEndPoint
 import org.scalatest.FlatSpec
 import play.api.libs.json.{JsString, Json}
 

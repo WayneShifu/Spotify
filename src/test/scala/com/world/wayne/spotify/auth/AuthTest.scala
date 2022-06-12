@@ -12,4 +12,11 @@ class AuthTest extends FlatSpec {
     }
     assert(thrown.getMessage.contains("Please set Environment Variables"))
   }
+
+  it must "throw error about invalid_client" in {
+    val thrown = intercept[Exception] {
+      Auth("clientId", "clientSecret")
+    }
+    assert(thrown.getMessage.contains("invalid_client"))
+  }
 }

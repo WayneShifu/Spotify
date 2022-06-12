@@ -1,4 +1,4 @@
-package com.world.wayne.spotify.utils
+package com.world.wayne.spotify.endpoints.utils
 
 import scalaj.http.{Http, HttpResponse}
 

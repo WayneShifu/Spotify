@@ -9,7 +9,7 @@ object HttpImplicits {
    *
    * Validate the response to ensure status code = 200
    */
-  implicit val httpResponseToJsObject: HttpResponse[String] => JsObject = {
+  implicit val implicitlyTransformHttpResponseToJsObject: HttpResponse[String] => JsObject = {
     case HttpResponse(body, 200, _) => Json.parse(body).as[JsObject]
     case HttpResponse(body, error, _) => throw new Exception(s"Error Occurred: $error, $body")
   }
