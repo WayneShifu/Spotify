@@ -8,7 +8,7 @@ object Spotify extends App {
   run()
 
   def run(): Unit = {
-    val spotifyPlaylistEndPoint = SpotifyPlaylistEndPoint(playListId = DEFAULT_PLAYLIST_ID, apiBaseUrl = PLAYLIST_URL)
+    val spotifyPlaylistEndPoint = SpotifyPlaylistEndPoint(apiBaseUrl = PLAYLIST_URL, playListId = DEFAULT_PLAYLIST_ID)
     PrintResults(spotifyPlaylistEndPoint)
   }
 }

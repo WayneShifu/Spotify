@@ -25,6 +25,7 @@ case class PlaylistTrackDataStore(
                        ) {
   val albumType: JsLookupResult = album \ "album_type"
 
-  val albumArtist: Seq[AlbumArtistStore] = (album \\ "artists").flatMap(artist => artist.as[JsArray].value.map(artist => artist.as[AlbumArtistStore](Json.format[AlbumArtistStore])))
+  val albumArtist: Seq[ArtistStore] = (album \\ "artists").flatMap(artist => artist.as[JsArray].value.map(artist => artist.as[ArtistStore](Json.format[ArtistStore])))
+  val playlistArtists: Seq[ArtistStore] = artists.as[JsArray].value.map(artist => artist.as[ArtistStore](Json.format[ArtistStore]))
   val albumAvailableMarketList: Seq[String] = (album \\ "available_markets").map(jv => jv.as[JsArray]).flatMap(markets => markets.value.map(market => market.as[JsString].value))
 }

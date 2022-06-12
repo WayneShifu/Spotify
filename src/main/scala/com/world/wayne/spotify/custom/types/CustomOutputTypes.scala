@@ -30,7 +30,7 @@ object CustomOutputTypes {
           TrackArtist(
             eachPlaylistTrackDataSet.track_number.value,
             eachPlaylistTrackDataSet.name.value,
-            eachPlaylistTrackDataSet.albumArtist.map(artist => artist.name.value).mkString(",")
+            eachPlaylistTrackDataSet.playlistArtists.map(artist => artist.name.value).mkString(", ")
           )
         )
   }
