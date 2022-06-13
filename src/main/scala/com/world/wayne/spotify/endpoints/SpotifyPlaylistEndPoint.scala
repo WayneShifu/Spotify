@@ -13,11 +13,11 @@ import scala.reflect.ClassTag
 
 case class SpotifyPlaylistEndPoint(apiBaseUrl: String, playListId: String) {
    def parseAndStorePlayListDataFromHttpResponseJsonWith[T: Reads](jsonObject: JsObject, customParseRule: Option[JsObject => Seq[JsValue]] = None)(implicit byUsingClassTag: ClassTag[T]): Seq[T] = {
-    val trackJs: JsObject => Seq[JsValue] = customParseRule match {
+    val JsObjectTransform: JsObject => Seq[JsValue] = customParseRule match {
       case Some(byUsingCustomDefinedRule) => byUsingCustomDefinedRule
       case _ => byUsingClassTag
     }
-    trackJs(jsonObject).map(track => track.as[T])
+     JsObjectTransform(jsonObject).map(eachDataSet => eachDataSet.as[T])
   }
 
   private val apiUrl: String = apiBaseUrl + playListId
