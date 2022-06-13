@@ -5,14 +5,24 @@ import com.world.wayne.spotify.common.implicits.HttpImplicits._
 import com.world.wayne.spotify.common.implicits.JsonImplicits._
 import com.world.wayne.spotify.custom.types.CustomOutputTypes
 import com.world.wayne.spotify.endpoints.utils.HttpEndPoint.createEndPoint
-import com.world.wayne.spotify.model.endpoint.playlist.{PlaylistDataStore, PlaylistTrackDataStore}
+import com.world.wayne.spotify.model.endpoint.playlist.{DataStore, PlaylistDataStore, PlaylistTrackDataStore}
 import play.api.libs.json.{JsObject, JsValue, Reads}
 import scalaj.http.HttpResponse
 
 import scala.reflect.ClassTag
 
 case class SpotifyPlaylistEndPoint(apiBaseUrl: String, playListId: String) {
-   def parseAndStorePlayListDataFromHttpResponseJsonWith[T: Reads](jsonObject: JsObject, customParseRule: Option[JsObject => Seq[JsValue]] = None)(implicit byUsingClassTag: ClassTag[T]): Seq[T] = {
+  /**
+   * It reads the Json Object and save the Dataset to T
+   *
+   * [T : Reads] implies that it is implicitly define Reads[T] when saving eachDataSet.as[T]
+   * @param jsonObject
+   * @param customParseRule Optional custom Parse Rule can be passed in, otherwise it uses the ClassTag to determine the Parse Rule
+   * @param byUsingClassTag ClasTag[T] - Please see the implicit defined in [[implicitlyTransformClassTagToTransformationFunction]]
+   * @tparam T DataStore case class
+   * @return
+   */
+   def parseAndStorePlayListDataFromHttpResponseJsonWith[T <: DataStore : Reads](jsonObject: JsObject, customParseRule: Option[JsObject => Seq[JsValue]] = None)(implicit byUsingClassTag: ClassTag[T]): Seq[T] = {
     val JsObjectTransform: JsObject => Seq[JsValue] = customParseRule match {
       case Some(byUsingCustomDefinedRule) => byUsingCustomDefinedRule
       case _ => byUsingClassTag

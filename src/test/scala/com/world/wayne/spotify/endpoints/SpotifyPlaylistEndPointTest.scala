@@ -1,10 +1,11 @@
 package com.world.wayne.spotify.endpoints
 
+import com.world.wayne.spotify.model.endpoint.playlist.DataStore
 import org.scalatest.FlatSpec
 import play.api.libs.json.{JsArray, JsObject, JsString, JsValue, Json, OFormat, Reads}
 
 class SpotifyPlaylistEndPointTest extends FlatSpec {
-  case class TrackTest(id: JsString, name: JsString)
+  case class TrackTest(id: JsString, name: JsString) extends DataStore
 
   it must "parse out JSon Object correctly into case class based on the fixed Json structure tracks-items-track" in {
 

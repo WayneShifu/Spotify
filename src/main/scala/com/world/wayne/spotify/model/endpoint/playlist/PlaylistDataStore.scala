@@ -18,6 +18,6 @@ case class PlaylistDataStore(
                          tracks: JsValue,
                          `type`: JsString,
                          uri: JsString
-                       ) {
+                       ) extends DataStore {
   val imageUri: Seq[String] = (images \\ "url").map(url => url.as[JsString].value)
 }

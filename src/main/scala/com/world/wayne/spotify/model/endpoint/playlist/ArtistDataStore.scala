@@ -11,11 +11,11 @@ import play.api.libs.json.{JsString, JsValue}
  * @param `type`
  * @param uri
  */
-case class ArtistStore(
+case class ArtistDataStore(
                         external_urls: JsValue,
                         href: JsString,
                         id: JsString,
                         name: JsString,
                         `type`: JsString,
                         uri: JsString
-                      )
+                      ) extends DataStore
