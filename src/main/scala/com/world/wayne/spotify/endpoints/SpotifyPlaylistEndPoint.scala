@@ -33,15 +33,17 @@ case class SpotifyPlaylistEndPoint(apiBaseUrl: String, playListId: String) {
   private val apiUrl: String = apiBaseUrl + playListId
   lazy val playlistHttpResponseData: HttpResponse[String] = createEndPoint(apiUrl, Auth().accessToken)
 
-  def outputPlaylistTrackLevelData[A <: CustomOutputTypes](outputSetter: Seq[PlaylistTrackDataStore] => Seq[A]): Seq[A] = {
+  /**
+   *
+   * @param outputSetter Higher Order Function to set the output
+   * @tparam D Data Store Case Class
+   * @tparam C Output Case Class
+   * @return Seq[Output Case Class]
+   * @note It implicitly convert HttpResponse to JsonObject.  Please see [[implicitlyTransformHttpResponseToJsObject]]
+   */
+  def outputPlaylistData[D <: DataStore: Reads: ClassTag, C <: CustomOutputTypes](outputSetter: Seq[D] => Seq[C]): Seq[C] = {
     outputSetter(
-      parseAndStorePlayListDataFromHttpResponseJsonWith[PlaylistTrackDataStore](playlistHttpResponseData)
-    )
-  }
-
-  def outputPlaylistLevelData[A <: CustomOutputTypes](outputSetter: Seq[PlaylistDataStore] => Seq[A]): Seq[A] = {
-    outputSetter(
-      parseAndStorePlayListDataFromHttpResponseJsonWith[PlaylistDataStore](playlistHttpResponseData)
+      parseAndStorePlayListDataFromHttpResponseJsonWith[D](playlistHttpResponseData)
     )
   }
 }
