@@ -9,7 +9,7 @@ case class TrackArtist(trackNumber: BigDecimal, trackName: String, artistNames: 
 }
 
 object TrackArtist {
-  lazy val storeTrackArtist: Seq[PlaylistTrackDataStore] => Seq[TrackArtist] = {
+  lazy val storeData: Seq[PlaylistTrackDataStore] => Seq[TrackArtist] = {
     allPlaylistTrackData =>
       allPlaylistTrackData
         .sortBy(t => t.track_number.value)

@@ -9,7 +9,7 @@ case class PlaylistSimpleData(name: String, uri: String, description: String) ex
 }
 
 object PlaylistSimpleData {
-  lazy val storePlaylistSimpleData: Seq[PlaylistDataStore] => Seq[PlaylistSimpleData] = {
+  lazy val storeData: Seq[PlaylistDataStore] => Seq[PlaylistSimpleData] = {
     allPlaylistData => allPlaylistData
       .map(
         eachPlaylistDataSet => PlaylistSimpleData(eachPlaylistDataSet.name.value, eachPlaylistDataSet.uri.value, eachPlaylistDataSet.description.value)

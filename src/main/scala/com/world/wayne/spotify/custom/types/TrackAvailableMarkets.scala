@@ -10,7 +10,7 @@ case class TrackAvailableMarkets(trackName: String, availableMarkets: String) ex
 }
 
 object TrackAvailableMarkets {
-  lazy val storeAvailableMarket: Seq[PlaylistTrackDataStore] => Seq[TrackAvailableMarkets] = {
+  lazy val storeData: Seq[PlaylistTrackDataStore] => Seq[TrackAvailableMarkets] = {
     allPlaylistTrackData => allPlaylistTrackData
       .map(
         eachPlaylistTrackDataSet => TrackAvailableMarkets(eachPlaylistTrackDataSet.name.value, eachPlaylistTrackDataSet.albumAvailableMarketList.mkString(","))

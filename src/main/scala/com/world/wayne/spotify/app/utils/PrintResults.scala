@@ -6,20 +6,21 @@ import com.world.wayne.spotify.custom.types.{PlaylistSimpleData, TrackArtist, Tr
 import com.world.wayne.spotify.common.implicits.JsonImplicits._
 
 object PrintResults {
+
   def apply(playlistEndPoint: SpotifyPlaylistEndPoint): Unit =  {
     playlistEndPoint
       .outputPlaylistData[PlaylistTrackDataStore, TrackAvailableMarkets](
-        fromPlaylistTrackStore => TrackAvailableMarkets.storeAvailableMarket(fromPlaylistTrackStore)
+        fromPlaylistTrackStore => TrackAvailableMarkets.storeData(fromPlaylistTrackStore)
       ).collect { case markets: TrackAvailableMarkets => println(markets) }
 
     playlistEndPoint
       .outputPlaylistData[PlaylistTrackDataStore, TrackArtist](
-        fromPlaylistTrackStore => TrackArtist.storeTrackArtist(fromPlaylistTrackStore)
+        fromPlaylistTrackStore => TrackArtist.storeData(fromPlaylistTrackStore)
       ).collect { case trackArtist: TrackArtist => println(trackArtist) }
 
     playlistEndPoint
       .outputPlaylistData[PlaylistDataStore, PlaylistSimpleData](
-        fromPlaylistDataStore => PlaylistSimpleData.storePlaylistSimpleData(fromPlaylistDataStore)
+        fromPlaylistDataStore => PlaylistSimpleData.storeData(fromPlaylistDataStore)
       ).collect { case playlistSimpleData: PlaylistSimpleData => println(playlistSimpleData) }
   }
 }

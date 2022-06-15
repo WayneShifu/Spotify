@@ -3,6 +3,7 @@ package com.world.wayne.spotify.auth
 import com.world.wayne.spotify.common.Constants.{AUTH_POST_FORM, AUTH_URL, ENV_CLIENT_ID_KEY, ENV_CLIENT_SECRET_KEY}
 import com.world.wayne.spotify.common.implicits.HttpImplicits._
 import com.world.wayne.spotify.common.implicits.JsonImplicits._
+import com.world.wayne.spotify.endpoints.utils.HttpEndPoint.getAccessToken
 import com.world.wayne.spotify.model.auth.AccessToken
 import play.api.libs.json.JsSuccess
 import scalaj.http.{Base64, Http}
@@ -17,17 +18,7 @@ import scala.util.{Failure, Success, Try}
  * @param clientSecret Client Secret
  */
 case class Auth(clientId: String, clientSecret: String) {
-
-  val accessToken: String = {
-    Http(AUTH_URL)
-      .header("Authorization", "Basic " + Base64.encodeString(clientId + ":" + clientSecret))
-      .postForm(AUTH_POST_FORM)
-      .asString
-      .validate[AccessToken] match {
-      case JsSuccess(v, _) => v.access_token
-      case _ => throw new Exception("Error while getting access token!")
-    }
-  }
+  val accessToken: String = getAccessToken(clientId, clientSecret)
 }
 
 /**

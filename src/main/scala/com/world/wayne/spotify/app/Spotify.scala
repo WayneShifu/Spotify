@@ -12,4 +12,3 @@ object Spotify extends App {
     PrintResults(fromSpotifyPlaylistEndPoint)
   }
 }
-
